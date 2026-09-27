@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet - CPEEE Jean Piaget</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#0081d5',
+                            green: '#1aa13b',
+                            red: '#e34125',
+                            pink: '#e152a5',
+                            yellow: '#ffeb00'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .tab-active { border-bottom: 3px solid #0081d5; color: #0081d5; font-weight: 700; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 bg-slate-50 antialiased selection:bg-blue-100 selection:text-blue-700">
+
+    <!-- MAIN HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- BRANDING & LOGO CPEEE JEAN PIAGET -->
+                <div class="flex items-center space-x-4">
+                    <div class="w-16 h-16 flex-shrink-0 cursor-pointer" onclick="switchTab('reservas')" title="CPEEE Jean Piaget">
+                        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-xs">
+                            <defs>
+                                <clipPath id="logoClip">
+                                    <circle cx="100" cy="100" r="94"/>
+                                </clipPath>
+                                <path id="textArcTop" d="M 25,100 A 75,75 0 0,1 175,100" />
+                                <path id="textArcBottom" d="M 175,105 A 75,75 0 0,1 25,105" />
+                            </defs>
+
+                            <!-- Background with 3 Wavy Colored Stripes -->
+                            <g clip-path="url(#logoClip)">
+                                <!-- Top Stripe: Sky Blue (#0081d5) -->
+                                <path d="M 0,0 L 200,0 L 200,85 Q 130,65 0,85 Z" fill="#0081d5" />
+                                <!-- Middle Stripe: Deep Green (#1aa13b) -->
+                                <path d="M 0,85 Q 130,65 200,85 L 200,135 Q 100,155 0,130 Z" fill="#1aa13b" />
+                                <!-- Bottom Stripe: Red-Orange (#e34125) -->
+                                <path d="M 0,130 Q 100,155 200,135 L 200,200 L 0,200 Z" fill="#e34125" />
+                            </g>
+
+                            <!-- CENTER SILHOUETTES: Adult Magenta figures holding hands with Yellow Child -->
+                            <g stroke="#000000" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+                                <!-- ADULT LEFT -->
+                                <circle cx="62" cy="82" r="10" fill="#e152a5" />
+                                <path d="M 62,92 C 55,100 50,115 45,130 M 62,95 L 68,110 M 62,98 L 78,110" fill="none" stroke="#e152a5" stroke-width="7" />
+                                <path d="M 62,92 C 55,100 50,115 45,130 M 62,95 L 68,110 M 62,98 L 78,110" fill="none" stroke="#000000" stroke-width="2.5" />
+                                
+                                <!-- CHILD CENTER -->
+                                <circle cx="100" cy="92" r="8" fill="#ffeb00" />
+                                <path d="M 100,100 L 100,120 M 100,105 L 78,110 M 100,105 L 122,110 M 100,120 L 92,135 M 100,120 L 108,135" fill="none" stroke="#ffeb00" stroke-width="6" />
+                                <path d="M 100,100 L 100,120 M 100,105 L 78,110 M 100,105 L 122,110 M 100,120 L 92,135 M 100,120 L 108,135" fill="none" stroke="#000000" stroke-width="2.5" />
+
+                                <!-- ADULT RIGHT -->
+                                <circle cx="138" cy="82" r="10" fill="#e152a5" />
+                                <path d="M 138,92 C 145,100 150,115 155,130 M 138,95 L 132,110 M 138,98 L 122,110" fill="none" stroke="#e152a5" stroke-width="7" />
+                                <path d="M 138,92 C 145,100 150,115 155,130 M 138,95 L 132,110 M 138,98 L 122,110" fill="none" stroke="#000000" stroke-width="2.5" />
+                            </g>
+
+                            <!-- Outer Thick Black Circle Border -->
+                            <circle cx="100" cy="100" r="94" fill="none" stroke="#000000" stroke-width="7"/>
+
+                            <!-- UPPER TEXT: "CPEEE" -->
+                            <text font-family="'Inter', Arial, sans-serif" font-weight="900" font-size="21" fill="#000000" letter-spacing="3">
+                                <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">CPEEE</textPath>
+                            </text>
+
+                            <!-- LOWER TEXT: "Jean Piaget" -->
+                            <text font-family="'Inter', Arial, sans-serif" font-weight="800" font-size="16" fill="#000000" letter-spacing="1">
+                                <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">Jean Piaget</textPath>
+                            </text>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                            CPEEE Jean Piaget
+                        </h1>
+                        <p class="text-xs text-slate-500 font-medium">Intranet de Gestión y Recursos TIC</p>
+                    </div>
+                </div>
+
+                <!-- USER IDENTIFICATION & ADMIN LOGIN BAR -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    
+                    <!-- PROFESORADO NAME FIELD (DEFAULT EMPTY) -->
+                    <div id="profesorNameContainer" class="flex items-center bg-slate-100 hover:bg-slate-200/80 transition border border-slate-300 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-blue-500">
+                        <i class="fa-solid fa-user-pen text-slate-500 text-sm mr-2"></i>
+                        <div class="flex flex-col">
+                            <label for="profesorNameInput" class="text-[10px] uppercase font-bold text-slate-500 leading-none mb-0.5">Profesor/a:</label>
+                            <input type="text" id="profesorNameInput" placeholder="Anota tu nombre..." 
+                                class="bg-transparent text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none w-32 sm:w-44 placeholder-slate-400"
+                                oninput="onTeacherNameChange(this.value)" value="">
+                        </div>
+                    </div>
+
+                    <!-- ADMIN LOGIN BUTTON -->
+                    <div id="authStatusContainer">
+                        <button onclick="openAdminModal()" class="inline-flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl text-white bg-slate-900 hover:bg-slate-800 transition shadow-xs gap-2">
+                            <i class="fa-solid fa-user-shield text-amber-400"></i>
+                            <span class="hidden sm:inline">Iniciar sesión</span> Coordinación
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="bg-white border-b border-slate-200 sticky top-20 z-20 shadow-2xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-8 overflow-x-auto no-scrollbar">
+                
+                <!-- TAB 1: RESERVAS DE ESPACIOS (DEFAULT INITIAL PANEL) -->
+                <button onclick="switchTab('reservas')" id="tab-btn-reservas" class="tab-btn tab-active py-4 px-1 text-sm font-bold flex items-center space-x-2 border-b-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-calendar-days text-base"></i>
+                    <span>Reservas de Espacios</span>
+                </button>
+
+                <!-- TAB 2: PRÉSTAMO DE DISPOSITIVOS -->
+                <button onclick="switchTab('dispositivos')" id="tab-btn-dispositivos" class="tab-btn border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300 py-4 px-1 text-sm font-semibold flex items-center space-x-2 border-b-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-laptop text-base"></i>
+                    <span>Préstamo de Dispositivos</span>
+                </button>
+
+                <!-- TAB 3: INCIDENCIAS TIC -->
+                <button onclick="switchTab('incidencias')" id="tab-btn-incidencias" class="tab-btn border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300 py-4 px-1 text-sm font-semibold flex items-center space-x-2 border-b-2 whitespace-nowrap transition-colors">
+                    <i class="fa-solid fa-screwdriver-wrench text-base"></i>
+                    <span>Incidencias TIC</span>
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- NOTIFICATION TOAST -->
+        <div id="toastNotification" class="hidden mb-6 p-4 rounded-xl border shadow-xs transition-all duration-300 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i id="toastIcon" class="fa-solid text-lg"></i>
+                <span id="toastMessage" class="text-sm font-semibold"></span>
+            </div>
+            <button onclick="hideToast()" class="text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- ================================================================================= -->
+        <!-- MODULE 1: RESERVAS DE ESPACIOS (MAIN INITIAL PANEL) -->
+        <!-- ================================================================================= -->
+        <section id="tab-content-reservas" class="tab-content">
+            
+            <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200 mb-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800">Semana Lectiva Activa</span>
+                            <span id="currentWeekRangeText" class="text-xs font-semibold text-slate-500"></span>
+                        </div>
+                        <h2 class="text-xl font-extrabold text-slate-900 mt-1">Ocupación y Reserva de Espacios</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Espacios autorizados: Casita, Biblioteca, Gimnasio, Cine, Multiusos 59-60 y Escenario.</p>
+                    </div>
+
+                    <!-- ACTIONS & FILTERS -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        
+                        <!-- Space Filter -->
+                        <div class="flex items-center space-x-2">
+                            <label class="text-xs font-bold text-slate-500">Filtrar Espacio:</label>
+                            <select id="spaceFilter" onchange="renderCalendar()" class="bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2 font-medium">
+                                <option value="TODOS">Todos los espacios (6)</option>
+                                <option value="Casita">Casita</option>
+                                <option value="Biblioteca">Biblioteca</option>
+                                <option value="Gimnasio">Gimnasio</option>
+                                <option value="Cine">Cine</option>
+                                <option value="Multiusos 59-60">Multiusos 59-60</option>
+                                <option value="Escenario">Escenario</option>
+                            </select>
+                        </div>
+
+                        <!-- Week Controls -->
+                        <div class="inline-flex rounded-xl shadow-2xs bg-slate-100 p-1 border border-slate-200">
+                            <button onclick="changeWeek(-1)" class="px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-white rounded-lg transition flex items-center gap-1">
+                                <i class="fa-solid fa-chevron-left"></i> Anterior
+                            </button>
+                            <button onclick="resetToCurrentWeek()" class="px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-white rounded-lg transition">
+                                Hoy
+                            </button>
+                            <button onclick="changeWeek(1)" class="px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-white rounded-lg transition flex items-center gap-1">
+                                Siguiente <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- New Reservation Button -->
+                        <button onclick="openNewReservationModal()" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-xs transition gap-2">
+                            <i class="fa-solid fa-plus text-sm"></i>
+                            <span>Nueva Reserva</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- LEGEND BADGES -->
+                <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap gap-2 text-xs">
+                    <span class="font-bold text-slate-500 mr-2 flex items-center">Espacios del centro:</span>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-300 font-semibold"><i class="fa-solid fa-house text-amber-600 mr-1.5"></i> Casita</span>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-900 border border-indigo-300 font-semibold"><i class="fa-solid fa-book text-indigo-600 mr-1.5"></i> Biblioteca</span>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-900 border border-emerald-300 font-semibold"><i class="fa-solid fa-dumbbell text-emerald-600 mr-1.5"></i> Gimnasio</span>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-purple-100 text-purple-900 border border-purple-300 font-semibold"><i class="fa-solid fa-film text-purple-600 mr-1.5"></i> Cine</span>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-sky-100 text-sky-900 border border-sky-300 font-semibold"><i class="fa-solid fa-layer-group text-sky-600 mr-1.5"></i> Multiusos 59-60</span>
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-rose-100 text-rose-900 border border-rose-300 font-semibold"><i class="fa-solid fa-masks-theater text-rose-600 mr-1.5"></i> Escenario</span>
+                </div>
+            </div>
+
+            <!-- CALENDAR GRID -->
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-[850px] border-collapse text-left text-xs">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                                <th class="py-3 px-3 w-28 text-center font-bold border-r border-slate-200 bg-slate-200/60 uppercase tracking-wider text-[11px]">Tramo</th>
+                                <th class="py-3 px-3 font-bold border-r border-slate-200 text-center w-1/5" id="th-mon">Lunes</th>
+                                <th class="py-3 px-3 font-bold border-r border-slate-200 text-center w-1/5" id="th-tue">Martes</th>
+                                <th class="py-3 px-3 font-bold border-r border-slate-200 text-center w-1/5" id="th-wed">Miércoles</th>
+                                <th class="py-3 px-3 font-bold border-r border-slate-200 text-center w-1/5" id="th-thu">Jueves</th>
+                                <th class="py-3 px-3 font-bold text-center w-1/5" id="th-fri">Viernes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="calendarGridBody" class="divide-y divide-slate-200">
+                            <!-- JS dynamic render -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================================================================================= -->
+        <!-- MODULE 2: PRÉSTAMO DE DISPOSITIVOS WITH TIMESTAMPED PHASE TRACKING -->
+        <!-- ================================================================================= -->
+        <section id="tab-content-dispositivos" class="tab-content hidden">
+            
+            <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-900">Gestión de Préstamos con Registro por Fases</h2>
+                    <p class="text-xs text-slate-500 mt-1">
+                        Catálogo autorizado: <strong>Portátiles, Tablets y Lápices digitales</strong>. Asignación de unidades del <strong>1 al 50</strong>.
+                    </p>
+                </div>
+                
+                <button onclick="openNewDeviceLoanModal()" class="inline-flex items-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs transition gap-2 self-start md:self-auto">
+                    <i class="fa-solid fa-plus text-sm"></i>
+                    <span>Solicitar Dispositivo</span>
+                </button>
+            </div>
+
+            <!-- WORKFLOW STAGES EXPLANATION -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-black text-xs flex-shrink-0">1</div>
+                    <div>
+                        <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wider">Fase 1: Solicitado</h4>
+                        <p class="text-xs text-amber-800 mt-0.5">Se registra la <strong>Fecha y Hora de Solicitud</strong> enviada por el profesorado.</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-4 flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs flex-shrink-0">2</div>
+                    <div>
+                        <h4 class="text-xs font-bold text-blue-900 uppercase tracking-wider">Fase 2: Ejecutado</h4>
+                        <p class="text-xs text-blue-800 mt-0.5">Se asigna la unidad (1-50) y se graba la <strong>Fecha y Hora de Entrega/Ejecución</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-100 border border-slate-200 rounded-2xl p-4 flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center font-black text-xs flex-shrink-0">3</div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Fase 3: Devuelto / Cerrado</h4>
+                        <p class="text-xs text-slate-700 mt-0.5">Se confirma la recepción y se graba la <strong>Fecha y Hora de Devolución/Cierre</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOANS TABLE -->
+            <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
+                <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between flex-wrap gap-3">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-blue-600"></i> Historial y Fechas de Préstamos
+                    </h3>
+                    
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-semibold text-slate-500">Filtrar Estado:</span>
+                        <select id="deviceStatusFilter" onchange="renderDeviceLoans()" class="bg-white border border-slate-300 text-xs rounded-xl px-3 py-1 font-medium focus:ring-blue-500">
+                            <option value="TODOS">Todos los préstamos</option>
+                            <option value="Solicitado">Fase 1: Solicitados</option>
+                            <option value="Ejecutado">Fase 2: Ejecutados / Activos</option>
+                            <option value="Devuelto">Fase 3: Devueltos / Cerrados</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-100 text-slate-600 font-bold uppercase text-[11px] tracking-wider border-b border-slate-200">
+                            <tr>
+                                <th class="py-3.5 px-4">Solicitante / Obs.</th>
+                                <th class="py-3.5 px-4">Dispositivo</th>
+                                <th class="py-3.5 px-4">Nº Unidad (1-50)</th>
+                                <th class="py-3.5 px-4">Historial de Fechas por Fase</th>
+                                <th class="py-3.5 px-4 text-center">Estado Flujo</th>
+                                <th class="py-3.5 px-4 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deviceLoansTableBody" class="divide-y divide-slate-200 font-medium">
+                            <!-- JS dynamic render -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================================================================================= -->
+        <!-- MODULE 3: INCIDENCIAS TIC (KANBAN) -->
+        <!-- ================================================================================= -->
+        <section id="tab-content-incidencias" class="tab-content hidden">
+            
+            <div class="bg-white p-5 rounded-2xl shadow-xs border border-slate-200 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-900">Comunicación de Incidencias Digitales y TIC</h2>
+                    <p class="text-xs text-slate-500 mt-1">Gestión de averías informáticas, pizarras digitales, problemas de red o soportes de aula.</p>
+                </div>
+                
+                <button onclick="openNewIncidentModal()" class="inline-flex items-center px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-xs transition gap-2 self-start md:self-auto">
+                    <i class="fa-solid fa-triangle-exclamation text-sm"></i>
+                    <span>Notificar Incidencia</span>
+                </button>
+            </div>
+
+            <!-- KANBAN BOARD -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- PENDIENTE -->
+                <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-4 flex flex-col min-h-[450px]">
+                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-amber-200">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                            <h3 class="font-extrabold text-amber-900 text-sm">Pendientes</h3>
+                        </div>
+                        <span id="badge-count-pendiente" class="px-2 py-0.5 rounded-full text-xs font-black bg-amber-200 text-amber-900">0</span>
+                    </div>
+
+                    <div id="kanban-column-Pendiente" class="space-y-3 flex-grow">
+                        <!-- JS Dynamic Cards -->
+                    </div>
+                </div>
+
+                <!-- EN PROCESO -->
+                <div class="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 flex flex-col min-h-[450px]">
+                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-blue-200">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                            <h3 class="font-extrabold text-blue-900 text-sm">En Proceso</h3>
+                        </div>
+                        <span id="badge-count-enproceso" class="px-2 py-0.5 rounded-full text-xs font-black bg-blue-200 text-blue-900">0</span>
+                    </div>
+
+                    <div id="kanban-column-En Proceso" class="space-y-3 flex-grow">
+                        <!-- JS Dynamic Cards -->
+                    </div>
+                </div>
+
+                <!-- RESUELTA -->
+                <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 flex flex-col min-h-[450px]">
+                    <div class="flex items-center justify-between pb-3 mb-3 border-b border-emerald-200">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                            <h3 class="font-extrabold text-emerald-900 text-sm">Resueltas</h3>
+                        </div>
+                        <span id="badge-count-resuelta" class="px-2 py-0.5 rounded-full text-xs font-black bg-emerald-200 text-emerald-900">0</span>
+                    </div>
+
+                    <div id="kanban-column-Resuelta" class="space-y-3 flex-grow">
+                        <!-- JS Dynamic Cards -->
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================================================================================= -->
+    <!-- MODALS -->
+    <!-- ================================================================================= -->
+
+    <!-- MODAL 1: ADMIN LOGIN (INPUTS CLEAN/BLANK BY DEFAULT) -->
+    <div id="modalAdminLogin" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base">Acceso Coordinación / Admin</h3>
+                        <p class="text-xs text-slate-300">Acceso restringido para gestión TIC</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Usuario Administrador</label>
+                    <input type="text" id="adminUser" value="" placeholder="Introduce usuario..." required 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-slate-800 font-medium">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Contraseña</label>
+                    <input type="password" id="adminPass" value="" placeholder="Introduce contraseña..." required 
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-slate-800 font-medium">
+                </div>
+
+                <div id="adminLoginError" class="hidden text-xs font-semibold text-rose-600 bg-rose-50 p-3 rounded-xl border border-rose-200">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Usuario o contraseña incorrectos.
+                </div>
+
+                <div class="pt-2 flex justify-end space-x-3">
+                    <button type="button" onclick="closeAdminModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs">
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: NUEVA RESERVA DE ESPACIO -->
+    <div id="modalNewReservation" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-blue-600 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-calendar-plus text-xl"></i>
+                    <h3 class="font-bold text-base">Nueva Reserva de Espacio</h3>
+                </div>
+                <button onclick="closeModal('modalNewReservation')" class="text-blue-100 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleCreateReservation(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre del Profesor/a</label>
+                    <input type="text" id="resTeacherName" required placeholder="Anota tu nombre..."
+                        class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 font-medium">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Seleccionar Espacio Autorizado</label>
+                    <select id="resSpace" required class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 font-medium">
+                        <option value="Casita">Casita</option>
+                        <option value="Biblioteca">Biblioteca</option>
+                        <option value="Gimnasio">Gimnasio</option>
+                        <option value="Cine">Cine</option>
+                        <option value="Multiusos 59-60">Multiusos 59-60</option>
+                        <option value="Escenario">Escenario</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Día de la Semana</label>
+                        <select id="resDay" required class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 font-medium">
+                            <option value="0">Lunes</option>
+                            <option value="1">Martes</option>
+                            <option value="2">Miércoles</option>
+                            <option value="3">Jueves</option>
+                            <option value="4">Viernes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Tramo Horario</label>
+                        <select id="resTime" required class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 font-medium">
+                            <option value="09:00 - 10:00">09:00 - 10:00</option>
+                            <option value="10:00 - 11:00">10:00 - 11:00</option>
+                            <option value="11:30 - 12:30">11:30 - 12:30</option>
+                            <option value="12:30 - 13:30">12:30 - 13:30</option>
+                            <option value="13:30 - 14:30">13:30 - 14:30</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Motivo / Actividad</label>
+                    <input type="text" id="resReason" required placeholder="Ej. Taller sensorial, Psicomotricidad..."
+                        class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 font-medium">
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('modalNewReservation')" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs">
+                        Confirmar Reserva
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: SOLICITAR DISPOSITIVO (SOLICITUD AUTOMÁTICA DE FECHA) -->
+    <div id="modalNewDeviceLoan" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-emerald-600 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-laptop text-xl"></i>
+                    <h3 class="font-bold text-base">Solicitar Préstamo de Dispositivo</h3>
+                </div>
+                <button onclick="closeModal('modalNewDeviceLoan')" class="text-emerald-100 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleCreateDeviceLoan(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre del Solicitante</label>
+                    <input type="text" id="devTeacherName" required placeholder="Anota tu nombre completo..."
+                        class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 font-medium">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Tipo de Dispositivo</label>
+                    <select id="devType" required class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 font-medium">
+                        <option value="Portátil">Portátil</option>
+                        <option value="Tablet">Tablet</option>
+                        <option value="Lápiz digital">Lápiz digital</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Observaciones / Destino de Uso</label>
+                    <input type="text" id="devNotes" placeholder="Ej. Para evaluación en Aula 12..."
+                        class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 font-medium">
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-800">
+                    <i class="fa-solid fa-clock text-emerald-600 mr-1.5"></i>
+                    Al enviar la solicitud, se grabará automáticamente la <strong>Fecha y Hora actual de Solicitud (Fase 1)</strong>.
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('modalNewDeviceLoan')" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs">
+                        Enviar Solicitud (Fase 1)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: ASIGNAR NÚMERO DE DISPOSITIVO (FASE 2: EJECUTADO) -->
+    <div id="modalAssignDeviceNumber" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-hashtag text-amber-400 text-xl"></i>
+                    <h3 class="font-bold text-base">Asignar Nº de Unidad (1 - 50)</h3>
+                </div>
+                <button onclick="closeModal('modalAssignDeviceNumber')" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleConfirmDeviceAssignment(event)" class="p-6 space-y-4">
+                <input type="hidden" id="assignLoanId">
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs">
+                    <p class="text-slate-600">Dispositivo: <strong id="assignDevTypeName" class="text-slate-900"></strong></p>
+                    <p class="text-slate-600">Solicitante: <strong id="assignDevTeacher" class="text-slate-900"></strong></p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Número de Dispositivo Asignado (1 al 50)</label>
+                    <input type="number" id="assignUnitNumber" min="1" max="50" required placeholder="Ej. 14"
+                        class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-base font-bold text-slate-800 focus:ring-2 focus:ring-slate-800">
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-800">
+                    <i class="fa-solid fa-calendar-check text-blue-600 mr-1.5"></i>
+                    Se grabará automáticamente la <strong>Fecha y Hora de Ejecución (Fase 2)</strong>.
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('modalAssignDeviceNumber')" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-xs">
+                        Aprobar y Ejecutar (Fase 2)
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: NUEVA INCIDENCIA TIC -->
+    <div id="modalNewIncident" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden border border-slate-100">
+            <div class="bg-rose-600 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                    <h3 class="font-bold text-base">Notificar Incidencia TIC</h3>
+                </div>
+                <button onclick="closeModal('modalNewIncident')" class="text-rose-100 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleCreateIncident(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre del Profesor/a</label>
+                    <input type="text" id="incTeacherName" required placeholder="Anota tu nombre..."
+                        class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 font-medium">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Ubicación / Aula</label>
+                        <input type="text" id="incLocation" required placeholder="Ej. Aula 5, Biblioteca..."
+                            class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Prioridad</label>
+                        <select id="incPriority" required class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 font-medium">
+                            <option value="Baja">Baja</option>
+                            <option value="Media" selected>Media</option>
+                            <option value="Alta">Alta</option>
+                            <option value="Urgente">Urgente</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción de la Incidencia</label>
+                    <textarea id="incDescription" rows="3" required placeholder="Describe el fallo (Pizarra digital no enciende, sin internet...)"
+                        class="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 font-medium"></textarea>
+                </div>
+
+                <div class="pt-3 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('modalNewIncident')" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-5 py-2.5 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-xl shadow-xs">
+                        Registrar Incidencia
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        /* HELPER FOR FORMATTED TIMESTAMPS */
+        function getFormattedNow() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            return `${dateStr} ${timeStr}`;
+        }
+
+        /* APPLICATION STATE */
+        let state = {
+            isAdmin: false,
+            teacherName: "",
+            currentWeekOffset: 0,
+            
+            // Authorized Spaces: Casita, Biblioteca, Gimnasio, Cine, Multiusos 59-60, Escenario
+            reservations: [
+                { id: 1, space: 'Casita', dayIndex: 0, time: '10:00 - 11:00', teacher: 'Carlos M.', reason: 'Actividad de vida diaria', confirmed: true },
+                { id: 2, space: 'Biblioteca', dayIndex: 1, time: '11:30 - 12:30', teacher: 'Ana Belén', reason: 'Cuentacuentos adaptado', confirmed: true },
+                { id: 3, space: 'Gimnasio', dayIndex: 2, time: '09:00 - 10:00', teacher: 'David L.', reason: 'Psicomotricidad', confirmed: false },
+                { id: 4, space: 'Cine', dayIndex: 3, time: '12:30 - 13:30', teacher: 'Elena R.', reason: 'Proyección multisensorial', confirmed: true },
+                { id: 5, space: 'Multiusos 59-60', dayIndex: 4, time: '10:00 - 11:00', teacher: 'Javier P.', reason: 'Encuentro grupal', confirmed: true }
+            ],
+
+            // Device Loans WITH TIMESTAMPED PHASE TRACKING (Fase 1, Fase 2, Fase 3)
+            deviceLoans: [
+                { 
+                    id: 101, 
+                    teacher: 'Laura S.', 
+                    type: 'Portátil', 
+                    unitNumber: 12, 
+                    status: 'Ejecutado', 
+                    notes: 'Evaluación de comunicación Aula 4',
+                    fechaSolicitud: '28/09/2026 09:15',
+                    fechaEjecucion: '28/09/2026 09:30',
+                    fechaDevolucion: null
+                },
+                { 
+                    id: 102, 
+                    teacher: 'Marcos T.', 
+                    type: 'Tablet', 
+                    unitNumber: null, 
+                    status: 'Solicitado', 
+                    notes: 'Taller de aplicaciones AAC',
+                    fechaSolicitud: '28/09/2026 10:05',
+                    fechaEjecucion: null,
+                    fechaDevolucion: null
+                },
+                { 
+                    id: 103, 
+                    teacher: 'Sofía G.', 
+                    type: 'Lápiz digital', 
+                    unitNumber: 5, 
+                    status: 'Devuelto', 
+                    notes: 'Edición de pictogramas',
+                    fechaSolicitud: '27/09/2026 11:20',
+                    fechaEjecucion: '27/09/2026 11:35',
+                    fechaDevolucion: '27/09/2026 14:10'
+                }
+            ],
+
+            // TIC Incidents (Kanban)
+            incidents: [
+                { id: 201, teacher: 'Pablo N.', location: 'Aula 8', priority: 'Alta', description: 'El altavoz bluetooth no enlaza.', status: 'Pendiente', date: '28/09/2026 09:15' },
+                { id: 202, teacher: 'Carmen R.', location: 'Cine', priority: 'Media', description: 'Revisar proyector, parpadea luz roja.', status: 'En Proceso', date: '27/09/2026 16:20' },
+                { id: 203, teacher: 'Gonzalo M.', location: 'Multiusos 59-60', priority: 'Baja', description: 'Actualizar software de pizarra digital.', status: 'Resuelta', date: '25/09/2026 12:00' }
+            ]
+        };
+
+        const SPACE_COLORS = {
+            'Casita': { bg: 'bg-amber-100', text: 'text-amber-900', border: 'border-amber-300', badge: 'bg-amber-500' },
+            'Biblioteca': { bg: 'bg-indigo-100', text: 'text-indigo-900', border: 'border-indigo-300', badge: 'bg-indigo-600' },
+            'Gimnasio': { bg: 'bg-emerald-100', text: 'text-emerald-900', border: 'border-emerald-300', badge: 'bg-emerald-600' },
+            'Cine': { bg: 'bg-purple-100', text: 'text-purple-900', border: 'border-purple-300', badge: 'bg-purple-600' },
+            'Multiusos 59-60': { bg: 'bg-sky-100', text: 'text-sky-900', border: 'border-sky-300', badge: 'bg-sky-600' },
+            'Escenario': { bg: 'bg-rose-100', text: 'text-rose-900', border: 'border-rose-300', badge: 'bg-rose-600' }
+        };
+
+        const TIME_SLOTS = [
+            '09:00 - 10:00',
+            '10:00 - 11:00',
+            '11:30 - 12:30',
+            '12:30 - 13:30',
+            '13:30 - 14:30'
+        ];
+
+        /* ON LOAD */
+        window.onload = function() {
+            document.getElementById('profesorNameInput').value = state.teacherName;
+            updateAuthUI();
+            renderCalendar();
+            renderDeviceLoans();
+            renderIncidentsKanban();
+        };
+
+        /* NAVIGATION TAB SWITCHER */
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('border-transparent', 'text-slate-500');
+            });
+
+            const targetContent = document.getElementById(`tab-content-${tabName}`);
+            const targetBtn = document.getElementById(`tab-btn-${tabName}`);
+
+            if (targetContent && targetBtn) {
+                targetContent.classList.remove('hidden');
+                targetBtn.classList.add('tab-active');
+                targetBtn.classList.remove('border-transparent', 'text-slate-500');
+            }
+        }
+
+        /* TOAST SYSTEM */
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toast.className = "mb-6 p-4 rounded-xl border shadow-xs transition-all duration-300 flex items-center justify-between ";
+            
+            if (type === 'success') {
+                toast.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-900');
+                toastIcon.className = "fa-solid fa-circle-check text-emerald-600 text-lg";
+            } else if (type === 'error') {
+                toast.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-900');
+                toastIcon.className = "fa-solid fa-circle-xmark text-rose-600 text-lg";
+            } else {
+                toast.classList.add('bg-blue-50', 'border-blue-200', 'text-blue-900');
+                toastIcon.className = "fa-solid fa-circle-info text-blue-600 text-lg";
+            }
+
+            toastMsg.innerText = msg;
+            toast.classList.remove('hidden');
+
+            setTimeout(() => { hideToast(); }, 4500);
+        }
+
+        function hideToast() {
+            document.getElementById('toastNotification').classList.add('hidden');
+        }
+
+        function onTeacherNameChange(val) {
+            state.teacherName = val.trim();
+        }
+
+        /* AUTH & ADMIN LOGIN (Creds: Admin123456 / Admin123456) */
+        function openAdminModal() {
+            document.getElementById('adminUser').value = "";
+            document.getElementById('adminPass').value = "";
+            document.getElementById('adminLoginError').classList.add('hidden');
+            document.getElementById('modalAdminLogin').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('modalAdminLogin').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (user === 'Admin123456' && pass === 'Admin123456') {
+                state.isAdmin = true;
+                closeAdminModal();
+                updateAuthUI();
+                renderCalendar();
+                renderDeviceLoans();
+                renderIncidentsKanban();
+                showToast("Acceso como Coordinación activado con éxito.");
+            } else {
+                document.getElementById('adminLoginError').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            state.isAdmin = false;
+            updateAuthUI();
+            renderCalendar();
+            renderDeviceLoans();
+            renderIncidentsKanban();
+            showToast("Ha cerrado la sesión de Coordinación.", "info");
+        }
+
+        function updateAuthUI() {
+            const container = document.getElementById('authStatusContainer');
+            if (state.isAdmin) {
+                container.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 gap-1.5">
+                            <i class="fa-solid fa-user-shield text-amber-600"></i>
+                            <span>Modo Coordinación / Admin</span>
+                        </span>
+                        <button onclick="logoutAdmin()" class="px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-200 hover:bg-slate-300 rounded-xl transition" title="Salir de Admin">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <button onclick="openAdminModal()" class="inline-flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-xl text-white bg-slate-900 hover:bg-slate-800 transition shadow-xs gap-2">
+                        <i class="fa-solid fa-user-shield text-amber-400"></i>
+                        <span class="hidden sm:inline">Iniciar sesión</span> Coordinación
+                    </button>
+                `;
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        /* MODULE 1: RESERVAS DE ESPACIOS */
+        function changeWeek(direction) {
+            state.currentWeekOffset += direction;
+            renderCalendar();
+        }
+
+        function resetToCurrentWeek() {
+            state.currentWeekOffset = 0;
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const today = new Date();
+            const currMon = new Date(today);
+            const dayNum = today.getDay() || 7;
+            currMon.setDate(today.getDate() - (dayNum - 1) + (state.currentWeekOffset * 7));
+
+            const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+            const thIds = ['th-mon', 'th-tue', 'th-wed', 'th-thu', 'th-fri'];
+
+            let startStr = "", endStr = "";
+
+            thIds.forEach((id, idx) => {
+                const d = new Date(currMon);
+                d.setDate(currMon.getDate() + idx);
+                const dayDateStr = `${d.getDate()}/${d.getMonth()+1}`;
+                if (idx === 0) startStr = dayDateStr;
+                if (idx === 4) endStr = dayDateStr;
+
+                const th = document.getElementById(id);
+                if (th) {
+                    const isToday = state.currentWeekOffset === 0 && (today.getDay() - 1 === idx);
+                    th.innerHTML = `
+                        <div class="flex flex-col items-center">
+                            <span class="${isToday ? 'text-blue-600 font-extrabold' : 'text-slate-700'}">${days[idx]}</span>
+                            <span class="text-[10px] ${isToday ? 'bg-blue-600 text-white font-bold px-2 py-0.5 rounded-full' : 'text-slate-500'} mt-0.5">${dayDateStr}</span>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('currentWeekRangeText').innerText = `Semana ${startStr} - ${endStr}`;
+
+            const selectedSpace = document.getElementById('spaceFilter').value;
+            const gridBody = document.getElementById('calendarGridBody');
+            gridBody.innerHTML = '';
+
+            TIME_SLOTS.forEach(timeSlot => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/60 transition";
+
+                let tdTime = `<td class="py-3 px-3 text-center font-bold text-slate-700 bg-slate-50/80 border-r border-slate-200 whitespace-nowrap">${timeSlot}</td>`;
+                tr.innerHTML = tdTime;
+
+                for (let dayIdx = 0; dayIdx < 5; dayIdx++) {
+                    const cellReservations = state.reservations.filter(r => 
+                        r.dayIndex === dayIdx && 
+                        r.time === timeSlot && 
+                        (selectedSpace === 'TODOS' || r.space === selectedSpace)
+                    );
+
+                    let cellHtml = `<td class="p-2 border-r border-slate-200 align-top min-h-[90px] h-24 w-1/5">`;
+
+                    if (cellReservations.length > 0) {
+                        cellReservations.forEach(res => {
+                            const colors = SPACE_COLORS[res.space] || { bg: 'bg-slate-100', text: 'text-slate-800', border: 'border-slate-300', badge: 'bg-slate-500' };
+                            const canDelete = state.isAdmin || (!res.confirmed && state.teacherName.toLowerCase() === res.teacher.toLowerCase() && state.teacherName !== "");
+
+                            cellHtml += `
+                                <div class="${colors.bg} ${colors.text} ${colors.border} border p-2 rounded-xl mb-1.5 shadow-2xs relative group">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="font-extrabold text-[11px] truncate uppercase tracking-tight flex items-center gap-1">
+                                            <span class="w-2 h-2 rounded-full ${colors.badge}"></span>
+                                            ${res.space}
+                                        </span>
+                                        ${res.confirmed 
+                                            ? '<span class="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded" title="Confirmada por Coordinación">OK</span>' 
+                                            : '<span class="text-[9px] bg-amber-500 text-white font-bold px-1.5 py-0.2 rounded" title="Pendiente de confirmación">Pend.</span>'
+                                        }
+                                    </div>
+                                    <div class="text-xs font-semibold leading-tight">${res.reason}</div>
+                                    <div class="text-[10px] text-slate-600 mt-1 flex items-center justify-between">
+                                        <span><i class="fa-solid fa-user text-[9px]"></i> ${res.teacher}</span>
+                                        
+                                        <div class="flex items-center space-x-1">
+                                            ${(!res.confirmed && state.isAdmin) ? `
+                                                <button onclick="confirmReservation(${res.id})" title="Confirmar Reserva" class="text-emerald-700 hover:text-emerald-900 bg-white/70 hover:bg-white px-1 rounded">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                            ` : ''}
+                                            
+                                            ${canDelete ? `
+                                                <button onclick="deleteReservation(${res.id})" title="Eliminar Reserva" class="text-rose-700 hover:text-rose-900 bg-white/70 hover:bg-white px-1 rounded">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        cellHtml += `
+                            <button onclick="openNewReservationModalWithSlot(${dayIdx}, '${timeSlot}')" class="w-full h-full min-h-[60px] rounded-xl border border-dashed border-slate-200 text-slate-300 hover:border-blue-400 hover:text-blue-500 hover:bg-blue-50/50 flex flex-col items-center justify-center transition group">
+                                <i class="fa-solid fa-plus text-xs group-hover:scale-110 transition"></i>
+                                <span class="text-[10px] font-medium mt-0.5">Reservar</span>
+                            </button>
+                        `;
+                    }
+
+                    cellHtml += `</td>`;
+                    tr.innerHTML += cellHtml;
+                }
+
+                gridBody.appendChild(tr);
+            });
+        }
+
+        function openNewReservationModal() {
+            document.getElementById('resTeacherName').value = state.teacherName;
+            document.getElementById('modalNewReservation').classList.remove('hidden');
+        }
+
+        function openNewReservationModalWithSlot(dayIdx, timeSlot) {
+            document.getElementById('resTeacherName').value = state.teacherName;
+            document.getElementById('resDay').value = dayIdx;
+            document.getElementById('resTime').value = timeSlot;
+            document.getElementById('modalNewReservation').classList.remove('hidden');
+        }
+
+        function handleCreateReservation(e) {
+            e.preventDefault();
+            const teacher = document.getElementById('resTeacherName').value.trim();
+            const space = document.getElementById('resSpace').value;
+            const dayIndex = parseInt(document.getElementById('resDay').value);
+            const time = document.getElementById('resTime').value;
+            const reason = document.getElementById('resReason').value.trim();
+
+            if (!teacher) {
+                showToast("Por favor, introduce tu nombre como Profesor/a.", "error");
+                return;
+            }
+
+            if (!state.teacherName) {
+                state.teacherName = teacher;
+                document.getElementById('profesorNameInput').value = teacher;
+            }
+
+            const newRes = {
+                id: Date.now(),
+                space,
+                dayIndex,
+                time,
+                teacher,
+                reason,
+                confirmed: state.isAdmin
+            };
+
+            state.reservations.push(newRes);
+            closeModal('modalNewReservation');
+            renderCalendar();
+            showToast(`Reserva para ${space} realizada.`);
+        }
+
+        function confirmReservation(id) {
+            const res = state.reservations.find(r => r.id === id);
+            if (res) {
+                res.confirmed = true;
+                renderCalendar();
+                showToast(`Reserva de ${res.space} confirmada por Coordinación.`);
+            }
+        }
+
+        function deleteReservation(id) {
+            const res = state.reservations.find(r => r.id === id);
+            if (res) {
+                if (!state.isAdmin && res.confirmed) {
+                    showToast("No puedes eliminar una reserva confirmada por Coordinación.", "error");
+                    return;
+                }
+                state.reservations = state.reservations.filter(r => r.id !== id);
+                renderCalendar();
+                showToast("Reserva eliminada.", "info");
+            }
+        }
+
+        /* MODULE 2: PRÉSTAMO DE DISPOSITIVOS WITH TIMESTAMPED PHASES */
+        function renderDeviceLoans() {
+            const tbody = document.getElementById('deviceLoansTableBody');
+            const filter = document.getElementById('deviceStatusFilter').value;
+            tbody.innerHTML = '';
+
+            const filtered = state.deviceLoans.filter(item => filter === 'TODOS' || item.status === filter);
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="py-8 text-center text-slate-400">
+                            <i class="fa-solid fa-laptop-slash text-2xl mb-2 block"></i>
+                            No hay préstamos registrados con este filtro.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filtered.forEach(loan => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+
+                // Status Badge
+                let statusBadge = '';
+                if (loan.status === 'Solicitado') {
+                    statusBadge = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                        <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span> Fase 1: Solicitado
+                    </span>`;
+                } else if (loan.status === 'Ejecutado') {
+                    statusBadge = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-900 border border-blue-300">
+                        <span class="w-2 h-2 rounded-full bg-blue-600 mr-1.5"></span> Fase 2: Ejecutado
+                    </span>`;
+                } else {
+                    statusBadge = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-200 text-slate-800 border border-slate-300">
+                        <i class="fa-solid fa-circle-check text-slate-600 mr-1.5"></i> Fase 3: Devuelto
+                    </span>`;
+                }
+
+                // Type Icon
+                let typeIcon = 'fa-laptop';
+                if (loan.type === 'Tablet') typeIcon = 'fa-tablet-screen-button';
+                if (loan.type === 'Lápiz digital') typeIcon = 'fa-pen-stylus';
+
+                // Format phase history timestamps
+                const fechaSolText = loan.fechaSolicitud ? `<div class="text-amber-800"><i class="fa-regular fa-clock mr-1"></i><strong>Solicitado:</strong> ${loan.fechaSolicitud}</div>` : '';
+                const fechaEjecText = loan.fechaEjecucion ? `<div class="text-blue-800"><i class="fa-solid fa-hand-holding-hand mr-1"></i><strong>Ejecutado:</strong> ${loan.fechaEjecucion}</div>` : `<div class="text-slate-400 italic"><i class="fa-regular fa-circle mr-1"></i>Ejecución pendiente</div>`;
+                const fechaDevText = loan.fechaDevolucion ? `<div class="text-emerald-800"><i class="fa-solid fa-box-archive mr-1"></i><strong>Devuelto:</strong> ${loan.fechaDevolucion}</div>` : (loan.status === 'Ejecutado' ? `<div class="text-blue-600 font-semibold"><i class="fa-solid fa-rotate mr-1"></i>En uso activo</div>` : `<div class="text-slate-400 italic"><i class="fa-regular fa-circle mr-1"></i>Devolución pendiente</div>`);
+
+                const canTeacherDelete = !state.isAdmin && loan.status === 'Solicitado' && (state.teacherName.toLowerCase() === loan.teacher.toLowerCase() && state.teacherName !== "");
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4">
+                        <span class="font-bold text-slate-900 block">${loan.teacher}</span>
+                        <span class="text-[10px] text-slate-500">${loan.notes || 'Sin observaciones'}</span>
+                    </td>
+                    <td class="py-3.5 px-4 font-bold text-slate-800">
+                        <i class="fa-solid ${typeIcon} text-blue-600 mr-1.5"></i> ${loan.type}
+                    </td>
+                    <td class="py-3.5 px-4 font-extrabold text-sm">
+                        ${loan.unitNumber ? `<span class="px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 font-mono">#${loan.unitNumber}</span>` : '<span class="text-slate-400 font-normal italic">Sin asignar</span>'}
+                    </td>
+                    <td class="py-3.5 px-4">
+                        <div class="space-y-0.5 text-[11px] leading-tight bg-slate-50 p-2 rounded-xl border border-slate-200">
+                            ${fechaSolText}
+                            ${fechaEjecText}
+                            ${fechaDevText}
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-4 text-center">${statusBadge}</td>
+                    <td class="py-3.5 px-4 text-right">
+                        <div class="flex items-center justify-end space-x-2">
+                            
+                            <!-- ADMIN: Assign Unit #1-50 (Moves to Phase 2) -->
+                            ${(state.isAdmin && loan.status === 'Solicitado') ? `
+                                <button onclick="openAssignUnitModal(${loan.id})" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition shadow-2xs">
+                                    Asignar Nº (1-50)
+                                </button>
+                            ` : ''}
+
+                            <!-- ADMIN: Mark as Returned (Moves to Phase 3) -->
+                            ${(state.isAdmin && loan.status === 'Ejecutado') ? `
+                                <button onclick="markLoanReturned(${loan.id})" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-lg transition shadow-2xs">
+                                    Marcar Devuelto
+                                </button>
+                            ` : ''}
+
+                            <!-- DELETE -->
+                            ${(state.isAdmin || canTeacherDelete) ? `
+                                <button onclick="deleteDeviceLoan(${loan.id})" title="Eliminar registro" class="p-1.5 text-slate-400 hover:text-rose-600 transition">
+                                    <i class="fa-solid fa-trash-can text-sm"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openNewDeviceLoanModal() {
+            document.getElementById('devTeacherName').value = state.teacherName;
+            document.getElementById('modalNewDeviceLoan').classList.remove('hidden');
+        }
+
+        function handleCreateDeviceLoan(e) {
+            e.preventDefault();
+            const teacher = document.getElementById('devTeacherName').value.trim();
+            const type = document.getElementById('devType').value;
+            const notes = document.getElementById('devNotes').value.trim();
+
+            if (!teacher) {
+                showToast("Por favor, anota tu nombre completo.", "error");
+                return;
+            }
+
+            if (!state.teacherName) {
+                state.teacherName = teacher;
+                document.getElementById('profesorNameInput').value = teacher;
+            }
+
+            // Phase 1: Solicitado -> Automatic timestamping
+            const newLoan = {
+                id: Date.now(),
+                teacher,
+                type,
+                unitNumber: null,
+                status: 'Solicitado',
+                notes,
+                fechaSolicitud: getFormattedNow(),
+                fechaEjecucion: null,
+                fechaDevolucion: null
+            };
+
+            state.deviceLoans.unshift(newLoan);
+            closeModal('modalNewDeviceLoan');
+            renderDeviceLoans();
+            showToast("Solicitud de préstamo enviada (Fase 1 completada con marca de fecha/hora).");
+        }
+
+        function openAssignUnitModal(id) {
+            const loan = state.deviceLoans.find(l => l.id === id);
+            if (!loan) return;
+
+            document.getElementById('assignLoanId').value = loan.id;
+            document.getElementById('assignDevTypeName').innerText = loan.type;
+            document.getElementById('assignDevTeacher').innerText = loan.teacher;
+            document.getElementById('assignUnitNumber').value = "";
+            document.getElementById('modalAssignDeviceNumber').classList.remove('hidden');
+        }
+
+        function handleConfirmDeviceAssignment(e) {
+            e.preventDefault();
+            const loanId = parseInt(document.getElementById('assignLoanId').value);
+            const unitNumber = parseInt(document.getElementById('assignUnitNumber').value);
+
+            if (unitNumber < 1 || unitNumber > 50) {
+                showToast("El número de unidad debe estar comprendido entre el 1 y el 50.", "error");
+                return;
+            }
+
+            const loan = state.deviceLoans.find(l => l.id === loanId);
+            if (loan) {
+                loan.unitNumber = unitNumber;
+                loan.status = 'Ejecutado'; // Phase 2
+                loan.fechaEjecucion = getFormattedNow(); // Timestamp Phase 2
+                closeModal('modalAssignDeviceNumber');
+                renderDeviceLoans();
+                showToast(`Unidad #${unitNumber} asignada. Fase 2 ejecutada y registrada con fecha/hora.`);
+            }
+        }
+
+        function markLoanReturned(id) {
+            const loan = state.deviceLoans.find(l => l.id === id);
+            if (loan) {
+                loan.status = 'Devuelto'; // Phase 3
+                loan.fechaDevolucion = getFormattedNow(); // Timestamp Phase 3
+                renderDeviceLoans();
+                showToast(`Dispositivo ${loan.type} #${loan.unitNumber} devuelto. Fase 3 registrada con fecha/hora.`, "info");
+            }
+        }
+
+        function deleteDeviceLoan(id) {
+            state.deviceLoans = state.deviceLoans.filter(l => l.id !== id);
+            renderDeviceLoans();
+            showToast("Registro de préstamo eliminado.", "info");
+        }
+
+        /* MODULE 3: TIC INCIDENTS KANBAN */
+        function renderIncidentsKanban() {
+            const cols = ['Pendiente', 'En Proceso', 'Resuelta'];
+            
+            cols.forEach(col => {
+                const colContainer = document.getElementById(`kanban-column-${col}`);
+                colContainer.innerHTML = '';
+
+                const items = state.incidents.filter(i => i.status === col);
+                const badgeId = col === 'Pendiente' ? 'badge-count-pendiente' : col === 'En Proceso' ? 'badge-count-enproceso' : 'badge-count-resuelta';
+                document.getElementById(badgeId).innerText = items.length;
+
+                if (items.length === 0) {
+                    colContainer.innerHTML = `
+                        <div class="h-32 border-2 border-dashed border-slate-200 rounded-xl flex items-center justify-center text-xs text-slate-400 font-medium">
+                            Sin incidencias
+                        </div>
+                    `;
+                    return;
+                }
+
+                items.forEach(inc => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white p-4 rounded-xl shadow-2xs border border-slate-200 hover:shadow-md transition relative group";
+
+                    let prioColor = 'bg-slate-100 text-slate-700';
+                    if (inc.priority === 'Urgente') prioColor = 'bg-rose-100 text-rose-800 font-extrabold';
+                    if (inc.priority === 'Alta') prioColor = 'bg-amber-100 text-amber-800 font-bold';
+
+                    const canDelete = state.isAdmin || (inc.status === 'Pendiente' && state.teacherName.toLowerCase() === inc.teacher.toLowerCase() && state.teacherName !== "");
+
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-md ${prioColor}">
+                                ${inc.priority}
+                            </span>
+                            <span class="text-[10px] text-slate-400 font-medium">${inc.date}</span>
+                        </div>
+
+                        <h4 class="font-bold text-sm text-slate-900 mb-1 leading-snug">${inc.description}</h4>
+                        
+                        <div class="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100 mt-2">
+                            <span><i class="fa-solid fa-location-dot text-rose-500 mr-1"></i> ${inc.location}</span>
+                            <span><i class="fa-solid fa-user text-slate-400 mr-1"></i> ${inc.teacher}</span>
+                        </div>
+
+                        <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            ${state.isAdmin ? `
+                                <select onchange="changeIncidentStatus(${inc.id}, this.value)" class="text-[11px] font-bold bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-slate-700 focus:ring-slate-800">
+                                    <option value="Pendiente" ${inc.status === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                                    <option value="En Proceso" ${inc.status === 'En Proceso' ? 'selected' : ''}>En Proceso</option>
+                                    <option value="Resuelta" ${inc.status === 'Resuelta' ? 'selected' : ''}>Resuelta</option>
+                                </select>
+                            ` : `<span class="text-[10px] font-semibold text-slate-400">Estado: ${inc.status}</span>`}
+
+                            ${canDelete ? `
+                                <button onclick="deleteIncident(${inc.id})" title="Eliminar incidencia" class="text-slate-400 hover:text-rose-600 p-1">
+                                    <i class="fa-solid fa-trash-can text-xs"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    `;
+
+                    colContainer.appendChild(card);
+                });
+            });
+        }
+
+        function openNewIncidentModal() {
+            document.getElementById('incTeacherName').value = state.teacherName;
+            document.getElementById('modalNewIncident').classList.remove('hidden');
+        }
+
+        function handleCreateIncident(e) {
+            e.preventDefault();
+            const teacher = document.getElementById('incTeacherName').value.trim();
+            const location = document.getElementById('incLocation').value.trim();
+            const priority = document.getElementById('incPriority').value;
+            const description = document.getElementById('incDescription').value.trim();
+
+            if (!teacher) {
+                showToast("Por favor, introduce tu nombre como Profesor/a.", "error");
+                return;
+            }
+
+            if (!state.teacherName) {
+                state.teacherName = teacher;
+                document.getElementById('profesorNameInput').value = teacher;
+            }
+
+            const newInc = {
+                id: Date.now(),
+                teacher,
+                location,
+                priority,
+                description,
+                status: 'Pendiente',
+                date: getFormattedNow()
+            };
+
+            state.incidents.unshift(newInc);
+            closeModal('modalNewIncident');
+            renderIncidentsKanban();
+            showToast("Incidencia TIC notificada correctamente.");
+        }
+
+        function changeIncidentStatus(id, newStatus) {
+            const inc = state.incidents.find(i => i.id === id);
+            if (inc) {
+                inc.status = newStatus;
+                renderIncidentsKanban();
+                showToast(`Estado de la incidencia modificado a "${newStatus}".`, "info");
+            }
+        }
+
+        function deleteIncident(id) {
+            state.incidents = state.incidents.filter(i => i.id !== id);
+            renderIncidentsKanban();
+            showToast("Incidencia TIC eliminada.", "info");
+        }
+    </script>
+</body>
+</html>
